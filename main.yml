@@ -2,3 +2,8 @@
 - hosts: all
   roles:
       - common
+      - runit
+      - {role: users, username: trololo}
+      - {role: users, username: trololo2}
+#      - {role: rvm_io.rvm1-ruby, 2.0.0p247
+#  sudo: yes

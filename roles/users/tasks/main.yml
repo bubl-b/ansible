@@ -1,0 +1,10 @@
+---
+- name: add admin user and create ssh key
+  user: name={{ username }} shell=/bin/bash groups=adm,sudo
+  sudo: yes
+- name: add user ssh key from local managing machine
+  authorized_key: user={{ username }} key="{{ lookup('file', '/Users/user/.ssh/bublkey.pub') }}"
+  sudo: yes
+- name: Create the .bashrc file
+  copy: src=bashrc dest=/home/{{ username }}/.bashrc owner={{ username }} group={{ username }} mode=0644
+  sudo: yes
