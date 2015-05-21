@@ -1,0 +1,29 @@
+---
+- name: installing admin stuff
+  apt: update_cache=yes
+  apt: pkg={{item}} state=latest
+  with_items:
+    - htop
+    - iftop
+    - mc
+    - wget
+    - vim
+    - tmux
+    - screen
+    - nload
+    - git
+    - bash-completion
+    - ntp
+    - tzdata
+  sudo: yes
+- name: set mcedit as default editor
+  command: update-alternatives --set editor /usr/bin/mcedit
+  sudo: yes
+- name: common | configure timezone
+  copy: content=Europe/Moscow dest=/etc/timezone owner=root group=root mode=644 backup=yes
+  notify: update timezone
+  sudo: yes
+- name: common | configure localtime
+  file: src=/usr/share/zoneinfo/Europe/Moscow dest=/etc/localtime owner=root group=root mode=644 state=link force=yes backup=yes
+  tags: common
+  sudo: yes
