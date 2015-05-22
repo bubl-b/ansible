@@ -1,4 +1,0 @@
----
-  - name: install runit
-    apt: pkg=runit state=latest
-    sudo: yes
